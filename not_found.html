@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECO DRIVE - Page Not Found</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* Additional styles for the not found page */
+        .not-found-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 70px;
+        }
+        
+        .not-found-content {
+            max-width: 600px;
+            padding: 3rem;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .not-found-icon {
+            font-size: 5rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.85rem 2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: #236b27;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(46, 125, 50, 0.4);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--gray);
+            border-radius: 4px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            width: 70%;
+            background-color: var(--primary);
+            animation: progressAnimation 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes progressAnimation {
+            0% { width: 60%; }
+            100% { width: 80%; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">ECO DRIVE</span>
+            </div>
+            <div class="nav-links desktop-nav">
+                <a href="#">Vehicles</a>
+                <a href="#">Technology</a>
+                <a href="#">Sustainability</a>
+                <a href="#">Shop</a>
+            </div>
+            <div class="nav-icons desktop-nav">
+                <div class="nav-icons desktop-nav">
+                    <a href="index.html" target="_blank">
+                        <span class="icon login-trigger"><i class="fas fa-user"></i></span>
+                    </a>
+                    <span class="icon"><i class="fas fa-search"></i></span>
+                    <span class="icon"><i class="fas fa-phone"></i></span>
+                    <span class="icon"><i class="fas fa-location-arrow"></i></span>
+                </div>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+        <div class="mobile-menu">
+            <a href="#">Vehicles</a>
+            <a href="#">Technology</a>
+            <a href="#">Sustainability</a>
+            <a href="#">Shop</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="not-found-section">
+            <div class="not-found-content">
+                <div class="not-found-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h1>Under Construction</h1>
+                <p>We're sorry, but the page you're looking for is currently not available.</p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <p>Our team is working hard to bring you something amazing. Please check back soon!</p>
+                <a href="home.php" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <ul>
+                        <li><a href="#">Find a Showroom</a></li>
+                        <li><a href="#">Book a Test Drive</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Configure Your Vehicle</a></li>
+                        <li><a href="#">Charging Solutions</a></li>
+                        <li><a href="#">Service Centers</a></li>
+                        <li><a href="logout.php" class="btn">Logout</a></li>
+                    </ul>   
+                </div>
+                <div class="footer-section">
+                    <h3>Sustainability</h3>
+                    <ul>
+                        <li><a href="#">Environmental Impact</a></li>
+                        <li><a href="#">Green Initiative</a></li>
+                        <li><a href="#">Carbon Offset</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">📘</a>
+                        <a href="#" class="social-icon">🐦</a>
+                        <a href="#" class="social-icon">📷</a>
+                        <a href="#" class="social-icon">▶️</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-logo">
+                    <span class="logo-text">ECO DRIVE</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Legal Notice</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">Privacy Policy</a>
+                    <span>© ECO DRIVE 2024 | Harsh Sharma</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

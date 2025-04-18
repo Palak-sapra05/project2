@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Integration in Eco Drive | Sustainable Transportation Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and base styles with improved typography */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2E7D32;
+            --primary-light: #4CAF50;
+            --accent: #2d06ef;
+            --text-dark: #1a1a1a;
+            --text-light: #f8f8f8;
+            --gray-light: #f5f5f5;
+            --gray: #e5e5e5;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+            background-color: #fdfdfd;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Enhanced Navbar styles with subtle shadow */
+        .navbar {
+            position: fixed;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 1000;
+            border-bottom: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 2px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 30%;
+            height: 3px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .logo-text:hover::after {
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            margin: 0 1.2rem;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.8rem;
+        }
+
+        .icon {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .icon i {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .icon::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transform: translateX(-50%);
+            transition: var(--transition);
+        }
+
+        .icon:hover i {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .icon:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu {
+            display: none;
+            padding: 1.5rem;
+            background: white;
+            box-shadow: var(--shadow);
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Article header styles */
+        .article-header {
+            height: 50vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 70px;
+            position: relative;
+        }
+
+        .article-title {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .article-title h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Article content styles */
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .article-text p {
+            margin-bottom: 1.8rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .article-text h2 {
+            font-size: 2rem;
+            margin: 2.5rem 0 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .article-text h3 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: var(--text-dark);
+        }
+
+        .article-text ul, .article-text ol {
+            margin-bottom: 1.8rem;
+            padding-left: 2rem;
+        }
+
+        .article-text li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-text a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .article-text a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .article-image {
+            margin: 2.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .article-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .caption {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.8rem;
+            font-style: italic;
+        }
+
+        .highlight-box {
+            background: var(--gray-light);
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .highlight-box h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        /* Share section */
+        .share-section {
+            margin: 3rem 0;
+            padding: 2rem 0;
+            border-top: 1px solid var(--gray);
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .share-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .share-button {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--gray-light);
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .share-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Related articles */
+        .related-articles {
+            padding: 4rem 0;
+            background: var(--gray-light);
+        }
+
+        .related-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .related-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .related-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .related-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .related-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .related-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .related-card:hover .related-image img {
+            transform: scale(1.08);
+        }
+
+        .related-info {
+            padding: 1.5rem;
+        }
+
+        .related-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .related-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Enhanced Footer */
+        .footer {
+            background: #1a1a1a;
+            color: #f5f5f5;
+            padding: 5rem 0 3rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-light);
+            font-size: 1.3rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-light);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 0.3rem 0;
+            display: inline-block;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-light);
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #ccc;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover {
+            color: white;
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom .logo-text {
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-menu.active {
+                display: block;
+            }
+
+            .article-title h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .article-title h1 {
+                font-size: 2.3rem;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 0.8rem;
+                align-items: center;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .article-title h1 {
+                font-size: 1.8rem;
+            }
+
+            .article-content {
+                padding: 3rem 1.5rem;
+            }
+
+            .article-text h2 {
+                font-size: 1.6rem;
+            }
+
+            .article-text h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo-text">ECO DRIVE</a>
+            <div class="nav-links desktop-nav">
+                <a href="home.php">Home</a>
+                <a href="#">Technologies</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.php">Contact</a>
+            </div>
+            <div class="nav-icons desktop-nav">
+                
+                <div class="icon">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="mobile-menu">
+            <a href="#">Home</a>
+            <a href="#">Technologies</a>
+            <a href="#">Solutions</a>
+            <a href="#">Case Studies</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+        <div class="article-title">
+            <h1>Solar Integration in Eco Drive: Revolutionizing Sustainable Transportation</h1>
+            <div class="article-meta">
+                <span><i class="far fa-calendar"></i> April 17, 2025</span>
+                <span><i class="far fa-user"></i> By Harsh Sharma</span>
+                <span><i class="far fa-clock"></i> 8 min read</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Content -->
+    <main class="article-content">
+        <div class="article-text">
+            <p>The transportation sector stands at a critical crossroads as climate change concerns and depleting fossil fuel reserves push innovation toward sustainable alternatives. Solar integration in electric vehicles represents one of the most promising frontiers in eco-friendly transportation technology, offering a path to energy independence and reduced carbon footprints.</p>
+            
+            <p>As we face mounting environmental challenges, solar-powered transportation solutions are emerging as key components in our transition to a cleaner, more sustainable future. This article explores the latest developments, challenges, and future prospects of solar integration in the rapidly evolving Eco Drive movement.</p>
+
+            <div class="article-image">
+                <img src="so.jpg">
+                <p class="caption">Next-generation solar panels seamlessly integrated into vehicle design</p>
+            </div>
+
+            <h2>The Evolution of Solar Technology in Transportation</h2>
+            
+            <p>The concept of solar-powered vehicles is not new, but recent technological breakthroughs have transformed what was once a theoretical possibility into a viable commercial reality. Early solar vehicles were primarily demonstration projects, limited by inefficient photovoltaic cells and bulky battery systems that made everyday use impractical.</p>
+            
+            <p>Today's solar integration technologies benefit from significant advancements in several key areas:</p>
+            
+            <ul>
+                <li><strong>Flexible and lightweight solar panels</strong> that can conform to vehicle contours</li>
+                <li><strong>Improved photovoltaic efficiency</strong>, with some newer cells exceeding 25% conversion rates</li>
+                <li><strong>Advanced energy management systems</strong> that optimize power collection and distribution</li>
+                <li><strong>Integration with regenerative braking</strong> and other energy recovery methods</li>
+                <li><strong>Smart charging infrastructures</strong> that complement onboard solar collection</li>
+            </ul>
+
+            <h2>Current Market Leaders and Innovations</h2>
+            
+            <p>Several manufacturers have emerged as pioneers in solar-integrated vehicles, each pursuing unique approaches to harnessing solar energy for transportation:</p>
+
+            <h3>Lightyear</h3>
+            <p>The Lightyear 0 and upcoming Lightyear 2 models represent breakthrough achievements in solar vehicle design. With solar cells covering the hood, roof, and rear, these vehicles can add up to 70 kilometers of range per day from solar power alone in optimal conditions.</p>
+
+            <div class="article-image">
+                <img src="solo.jpg" alt="Lightyear solar vehicle on display">
+                <p class="caption">Lightyear's innovative solar vehicle design maximizes surface area for energy collection</p>
+            </div>
+
+            <h3>Toyota</h3>
+            <p>Toyota's approach involves optional solar roof packages for their Prius Prime and BZ4X models. While more modest in power generation than dedicated solar vehicles, these systems effectively extend range and reduce the frequency of plug-in charging for daily commuters.</p>
+
+            <h3>Sono Motors</h3>
+            <p>The Sion by Sono Motors integrates solar cells across nearly all exterior surfaces using proprietary polymer-based technology. This approach allows for maximum energy harvesting while maintaining reasonable production costs, aiming to democratize solar mobility.</p>
+
+            <div class="highlight-box">
+                <h3>Key Benefits of Solar Integration in Vehicles</h3>
+                <ul>
+                    <li><strong>Extended Range:</strong> Additional 15-70 km daily without plugging in</li>
+                    <li><strong>Reduced Grid Dependency:</strong> Less strain on charging infrastructure</li>
+                    <li><strong>Lower Operating Costs:</strong> Reduced electricity expenses over vehicle lifetime</li>
+                    <li><strong>Emergency Power:</strong> Reliable energy source in remote areas or during grid outages</li>
+                    <li><strong>Reduced Carbon Footprint:</strong> True zero-emission driving when using solar power</li>
+                </ul>
+            </div>
+
+            <h2>Technical Challenges and Solutions</h2>
+            
+            <p>Despite impressive progress, several technical challenges continue to influence the adoption and effectiveness of solar-integrated vehicles:</p>
+            
+            <h3>Surface Area Limitations</h3>
+            <p>Conventional vehicle designs offer limited surface area for solar panel installation. Engineers are addressing this constraint through innovative approaches including deployable panels, transparent solar cells on windows, and solar-embedded paint technologies currently in development at several research institutions.</p>
+
+            <h3>Weight Considerations</h3>
+            <p>Traditional solar panels add significant weight, negatively impacting vehicle efficiency. Next-generation thin-film and organic photovoltaic technologies reduce weight while maintaining reasonable efficiency, representing an important compromise in current designs.</p>
+
+            <h3>Variable Energy Generation</h3>
+            <p>Solar energy collection varies significantly based on weather conditions, time of day, and geographic location. Advanced energy management systems use AI-driven predictive algorithms to optimize charging strategies and route planning based on expected solar conditions and energy requirements.</p>
+
+            <div class="article-image">
+                <img src="123.jpg" alt="Energy management system display in a solar vehicle">
+                <p class="caption">Modern solar vehicles utilize sophisticated energy management systems to optimize power collection</p>
+            </div>
+
+            <h2>Economic Considerations and Market Outlook</h2>
+            
+            <p>The economic viability of solar-integrated vehicles continues to improve as technology advances and production scales. Current cost-benefit analyses suggest that integrated solar systems can pay for themselves within 3-5 years of regular use in sunny regions, with longer payback periods in less ideal climates.</p>
+            
+            <p>Market projections indicate substantial growth for solar mobility solutions:</p>
+            
+            <ul>
+                <li>The global solar vehicle market is expected to grow at a CAGR of 35.8% from 2024 to 2030</li>
+                <li>By 2027, analysts predict that 25% of new electric vehicles will feature some form of integrated solar technology</li>
+                <li>Commercial vehicle applications, particularly in delivery and logistics, represent the fastest-growing segment for solar integration</li>
+            </ul>
+
+            <h2>Environmental Impact and Sustainability</h2>
+            
+            <p>When evaluating the environmental benefits of solar-integrated vehicles, the entire lifecycle must be considered. Manufacturing solar cells does involve energy-intensive processes and specialized materials, creating an initial "carbon debt" that must be repaid through clean operation.</p>
+            
+            <p>Recent lifecycle assessments indicate that solar-integrated vehicles typically offset their manufacturing emissions within 1-2 years of operation compared to standard electric vehicles, with the advantage growing throughout the vehicle's operational life. Furthermore, advances in recycling technologies are improving end-of-life recovery rates for solar components, enhancing the overall sustainability profile.</p>
+
+            <div class="highlight-box">
+                <h3>Case Study: Solar Shuttle Fleet in Barcelona</h3>
+                <p>In 2023, Barcelona implemented a fleet of 50 solar-augmented shuttle buses serving tourism routes along the Mediterranean coast. During the first year of operation, these vehicles:</p>
+                <ul>
+                    <li>Generated 42% of their energy requirements through onboard solar systems</li>
+                    <li>Reduced grid charging needs by over 315,000 kWh</li>
+                    <li>Prevented approximately 145 metric tons of CO₂ emissions</li>
+                    <li>Demonstrated 98.7% operational reliability with minimal maintenance requirements</li>
+                </ul>
+                <p>The success of this program has led to planned expansions in multiple European cities with similar climate profiles.</p>
+            </div>
+
+            <h2>Future Directions and Emerging Technologies</h2>
+            
+            <p>The future of solar integration in transportation extends beyond current implementations, with several promising technologies on the horizon:</p>
+            
+            <h3>Solar Roads and Infrastructure</h3>
+            <p>Complementary to vehicle-mounted systems, solar road surfaces and charging infrastructures could create comprehensive energy ecosystems. Several pilot projects are underway globally, though durability and cost concerns remain significant barriers to widespread adoption.</p>
+
+            <h3>Advanced Materials Science</h3>
+            <p>Perovskite solar cells and quantum dot technologies promise dramatically improved efficiency at lower costs, potentially transforming the economics of solar vehicles within the next decade. Recent laboratory demonstrations have achieved conversion efficiencies approaching 30% in stable formulations.</p>
+
+            <h3>Vehicle-to-Grid Integration</h3>
+            <p>Solar vehicles increasingly serve as mobile energy storage units that can return power to homes or the grid during peak demand periods. This bidirectional capability enhances the value proposition while providing grid stabilization benefits as renewable energy adoption increases.</p>
+
+            <div class="article-image">
+                <img src="133.png" alt="Vehicle-to-grid connection concept">
+                <p class="caption">Solar vehicles can function as mobile power plants in advanced energy ecosystems</p>
+            </div>
+
+            <h2>Conclusion</h2>
+            
+            <p>Solar integration in transportation represents a transformative approach to sustainable mobility that extends beyond simply replacing fossil fuels with grid electricity. By harnessing renewable energy directly at the point of use, these technologies offer unique advantages in autonomy, infrastructure resilience, and true zero-emission operation.</p>
+            
+            <p>While challenges remain in maximizing efficiency and reducing costs, the trajectory is clear: solar-integrated vehicles are evolving from specialized novelties to mainstream transportation solutions with compelling economic and environmental benefits. As technology continues to advance and production scales, we can expect solar mobility to play an increasingly important role in our sustainable transportation future.</p>
+            
+            <p>The coming decade will likely see solar integration extend from personal vehicles to commercial fleets, public transit, and specialized applications, creating new opportunities for innovation and environmental progress across the mobility ecosystem.</p>
+        </div>
+
+        <!-- Share Section -->
+        <div class="share-section">
+            <h3>Share this article</h3>
+            <div class="share-buttons">
+                <a href="#" class="share-button"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="share-button"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="share-button"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="share-button"><i class="far fa-envelope"></i></a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Related Articles -->
+    <section class="related-articles">
+        <div class="container">
+            <div class="related-title">
+                <h2>Related Articles</h2>
+                <p>Explore more insights on sustainable transportation solutions</p>
+            </div>
+            <div class="related-grid">
+                <article class="related-card">
+                    <div class="related-image">
+                        <img src="155.jpg" alt="Electric vehicle charging station">
+                    </div>
+                    <div class="related-info">
+                        <h3>The Future of EV Charging Infrastructure</h3>
+                        <p>How smart grids and renewable energy are transforming the way we power our vehicles.</p>
+                        <a href="#" class="link-btn">Read more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="related-card">
+                    <div class="related-image">
+                        <img src="147.jpg" alt="Autonomous electric bus">
+                    </div>
+                    <div class="related-info">
+                        <h3>Autonomous Technology in Public Transit</h3>
+                        <p>Self-driving electric buses are revolutionizing urban mobility solutions.</p>
+                        <a href="#" class="link-btn">Read more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="related-card">
+                    <div class="related-image">
+                        <img src="142.jpg" alt="Hydrogen fuel cell technology">
+                    </div>
+                    <div class="related-info">
+                        <h3>Hydrogen vs. Battery: Complementary Technologies</h3>
+                        <p>Understanding how different zero-emission technologies can work together.</p>
+                        <a href="#" class="link-btn">Read more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>About Eco Drive</h3>
+                    <p>We're dedicated to accelerating the transition to sustainable transportation through innovative technologies and thoughtful analysis.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="calc.html">CFC</a></li>
+                        <li><a href="logout.php">Log Out</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="home.php">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.php">Contact</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div class="footer-bottom">
+                <a href="#" class="logo-text">ECO DRIVE</a>
+                
+                <p>© 2025 Eco Drive. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

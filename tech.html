@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECO DRIVE - Technology</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* Additional styles for the technology page */
+        .tech-hero {
+            height: 70vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), 
+                              url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .tech-features {
+            padding: 5rem 0;
+            background-color: var(--gray-light);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+            background: linear-gradient(135deg, #f9f9f9, #f1f1f1);
+        }
+        
+        .feature-content {
+            padding: 1.5rem;
+        }
+        
+        .feature-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .tech-showcase {
+            padding: 5rem 0;
+        }
+        
+        .tech-item {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .tech-item {
+                flex-direction: row;
+                align-items: center;
+                gap: 3rem;
+            }
+            
+            .tech-item:nth-child(even) {
+                flex-direction: row-reverse;
+            }
+        }
+        
+        .tech-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .tech-image img {
+            width: 100%;
+            height: auto;
+            transition: var(--transition);
+        }
+        
+        .tech-item:hover .tech-image img {
+            transform: scale(1.05);
+        }
+        
+        .tech-info {
+            flex: 1;
+            padding: 2rem 0;
+        }
+        
+        @media (min-width: 768px) {
+            .tech-info {
+                padding: 0;
+            }
+        }
+        
+        .tech-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .tech-info p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .tech-specs {
+            margin-top: 1.5rem;
+        }
+        
+        .tech-specs li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tech-specs li:before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--primary);
+            margin-right: 0.8rem;
+        }
+        
+        .innovation-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f4f9f4, #e8f5e9);
+            text-align: center;
+        }
+        
+        .timeline {
+            max-width: 800px;
+            margin: 4rem auto 0;
+            position: relative;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            transform: translateX(-50%);
+        }
+        
+        .milestone {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .milestone-content {
+            width: 45%;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .milestone:nth-child(odd) .milestone-content {
+            margin-left: auto;
+        }
+        
+        .milestone-content:after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+        
+        .milestone:nth-child(odd) .milestone-content:after {
+            left: -30px;
+        }
+        
+        .milestone:nth-child(even) .milestone-content:after {
+            right: -30px;
+        }
+        
+        .milestone-year {
+            position: absolute;
+            top: 12px;
+            padding: 0.3rem 1rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .milestone:nth-child(odd) .milestone-year {
+            left: -80px;
+        }
+        
+        .milestone:nth-child(even) .milestone-year {
+            right: -80px;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline:before {
+                left: 20px;
+            }
+            
+            .milestone-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+            
+            .milestone-content:after {
+                left: -30px !important;
+                right: auto !important;
+            }
+            
+            .milestone-year {
+                left: -60px !important;
+                right: auto !important;
+            }
+        }
+        
+        .cta-section {
+            padding: 5rem 0;
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 576px) {
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">ECO DRIVE</span>
+            </div>
+            <div class="nav-links desktop-nav">
+                <a href="home.php">Home</a>
+                <a href="#">Vehicles</a>
+                <a href="#" class="active">Technology</a>
+                <a href="#">Sustainability</a>
+                <a href="#">Shop</a>
+            </div>
+            <div class="nav-icons desktop-nav">
+                <div class="nav-icons desktop-nav">
+                    <a href="index.html" target="_blank">
+                        <span class="icon login-trigger"><i class="fas fa-user"></i></span>
+                    </a>
+                    <span class="icon"><i class="fas fa-search"></i></span>
+                    <span class="icon"><i class="fas fa-phone"></i></span>
+                    <span class="icon"><i class="fas fa-location-arrow"></i></span>
+                </div>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+        <div class="mobile-menu">
+            <a href="home.php">Home</a>
+            <a href="#">Vehicles</a>
+            <a href="#">Technology</a>
+            <a href="#">Sustainability</a>
+            <a href="#">Shop</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="tech-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Innovative Technology</h1>
+                    <p>Discover the cutting-edge innovations driving our sustainable mobility solutions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features Section -->
+        <section class="tech-features">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Advanced Eco Technologies</h2>
+                    <p>Explore the revolutionary systems that make ECO DRIVE vehicles the future of transportation.</p>
+                </div>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Next-Gen Battery</h3>
+                            <p>Our proprietary battery technology delivers 500+ mile range with 80% charge in just 15 minutes.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-solar-panel"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Solar Integration</h3>
+                            <p>Integrated solar panels harvest clean energy while driving or parked, extending range by up to 30 miles per day.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Eco AI</h3>
+                            <p>Our intelligent system optimizes energy use based on driving conditions, maximizing efficiency in real-time.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Circular Materials</h3>
+                            <p>95% recyclable components with bio-based materials that reduce environmental impact throughout the lifecycle.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Enhanced Safety</h3>
+                            <p>Advanced driver assistance and 360° protection with predictive safety technology that anticipates potential hazards.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Connected Ecosystem</h3>
+                            <p>Seamless integration with your smart home and devices with over-the-air updates for continuous improvement.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Showcase -->
+        <section class="tech-showcase">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Core Technologies</h2>
+                    <p>Explore the groundbreaking innovations that set ECO DRIVE apart.</p>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-image">
+                        <img src="https://images.unsplash.com/photo-1558717738-12f5dae36c8f?auto=format&fit=crop&q=80" alt="EcoDrive Powertrain">
+                    </div>
+                    <div class="tech-info">
+                        <h3>EcoPower Drivetrain</h3>
+                        <p>Our revolutionary drivetrain system achieves unprecedented efficiency through advanced materials and innovative engineering. With dual-motor configuration and adaptive power distribution, EcoPower delivers exceptional performance while minimizing energy consumption.</p>
+                        <p>The system's regenerative capabilities recover up to 70% of kinetic energy during braking, significantly extending range during city driving.</p>
+                        <ul class="tech-specs">
+                            <li>Up to 95% energy conversion efficiency</li>
+                            <li>Intelligent torque vectoring for enhanced handling</li>
+                            <li>Adaptive power distribution based on driving conditions</li>
+                            <li>Thermal management system for optimal performance</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-image">
+                        <img src="https://images.unsplash.com/photo-1620045604222-972e6b8ca676?auto=format&fit=crop&q=80" alt="NexGen Battery Technology">
+                    </div>
+                    <div class="tech-info">
+                        <h3>NexGen Battery Technology</h3>
+                        <p>Our proprietary solid-state battery technology represents a quantum leap in energy storage. With higher energy density and faster charging capabilities, NexGen batteries deliver exceptional range without compromising safety or longevity.</p>
+                        <p>The innovative cell architecture and thermal management system ensure optimal performance in all conditions, from arctic cold to desert heat.</p>
+                        <ul class="tech-specs">
+                            <li>500+ mile range on a single charge</li>
+                            <li>80% charge in just 15 minutes</li>
+                            <li>10-year/500,000-mile warranty</li>
+                            <li>Zero thermal runaway risk for unmatched safety</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-image">
+                        <img src="https://images.unsplash.com/photo-1472740378865-80aab8e73251?auto=format&fit=crop&q=80" alt="EcoSmart Operating System">
+                    </div>
+                    <div class="tech-info">
+                        <h3>EcoSmart OS</h3>
+                        <p>Our intelligent operating system connects all vehicle systems into a seamless, intuitive experience. EcoSmart OS continuously learns from your driving habits to optimize performance, comfort, and efficiency.</p>
+                        <p>With over-the-air updates, your ECO DRIVE vehicle improves over time, gaining new features and enhanced capabilities without requiring dealer visits.</p>
+                        <ul class="tech-specs">
+                            <li>AI-driven energy optimization for maximum efficiency</li>
+                            <li>Predictive maintenance to prevent issues before they occur</li>
+                            <li>Personalized driving experience that adapts to your preferences</li>
+                            <li>Seamless integration with smart home and personal devices</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Innovation Timeline -->
+        <section class="innovation-section">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Innovation Journey</h2>
+                    <p>Our commitment to sustainable technology innovation spans years of dedicated research and development.</p>
+                </div>
+                
+                <div class="timeline">
+                    <div class="milestone">
+                        <div class="milestone-content">
+                            <span class="milestone-year">2018</span>
+                            <h3>Foundation</h3>
+                            <p>ECO DRIVE was founded with a vision to revolutionize transportation through sustainable technology.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone">
+                        <div class="milestone-content">
+                            <span class="milestone-year">2019</span>
+                            <h3>First Prototype</h3>
+                            <p>Our first concept vehicle demonstrated the potential of integrated solar technology in passenger vehicles.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone">
+                        <div class="milestone-content">
+                            <span class="milestone-year">2020</span>
+                            <h3>Battery Breakthrough</h3>
+                            <p>Development of our proprietary NexGen battery technology with 2x energy density of conventional lithium-ion.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone">
+                        <div class="milestone-content">
+                            <span class="milestone-year">2022</span>
+                            <h3>First Production Model</h3>
+                            <p>Launch of our flagship ECO DRIVE Sedan with industry-leading range and efficiency.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone">
+                        <div class="milestone-content">
+                            <span class="milestone-year">2023</span>
+                            <h3>EcoSmart OS Launch</h3>
+                            <p>Introduction of our revolutionary operating system that integrates all vehicle systems for optimal performance.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone">
+                        <div class="milestone-content">
+                            <span class="milestone-year">2024</span>
+                            <h3>Full Product Line</h3>
+                            <p>Expansion to a full range of sustainable vehicles including SUV and Sport models.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Experience the Future of Mobility</h2>
+                    <p>Discover how our revolutionary technology can transform your driving experience while preserving our planet for future generations.</p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary">Schedule a Test Drive</button>
+                        <button class="btn btn-secondary">Download Technology Guide</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <ul>
+                        <li><a href="#">Find a Showroom</a></li>
+                        <li><a href="#">Book a Test Drive</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Configure Your Vehicle</a></li>
+                        <li><a href="#">Charging Solutions</a></li>
+                        <li><a href="#">Service Centers</a></li>
+                        <li><a href="logout.php" class="btn">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Sustainability</h3>
+                    <ul>
+                        <li><a href="#">Environmental Impact</a></li>
+                        <li><a href="#">Green Initiative</a></li>
+                        <li><a href="#">Carbon Offset</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">📘</a>
+                        <a href="#" class="social-icon">🐦</a>
+                        <a href="#" class="social-icon">📷</a>
+                        <a href="#" class="social-icon">▶️</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-logo">
+                    <span class="logo-text">ECO DRIVE</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Legal Notice</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">Privacy Policy</a>
+                    <span>© ECO DRIVE 2024 | Harsh Sharma</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

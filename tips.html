@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoDrive - Comprehensive Eco-Driving Tips</title>
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --secondary: #27ae60;
+            --dark: #1e272e;
+            --light: #f5f6fa;
+            --accent: #3498db;
+            --accent-secondary: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--dark);
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .page-title {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-title h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-title p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .eco-tips-section {
+            padding: 60px 0;
+        }
+        
+        .section-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+        
+        .section-intro h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .section-intro p {
+            color: #555;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 25px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            color: var(--dark);
+            background-color: #e0e0e0;
+        }
+        
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tip-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .tip-item {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .tip-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .tip-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tip-icon {
+            font-size: 28px;
+            margin-right: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .tip-title {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .tip-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .tip-body {
+            padding: 25px;
+        }
+        
+        .tip-body p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .tip-stats {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .stat-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .stat-icon {
+            color: var(--primary);
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .resources {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .resources-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .resources-title h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .resource-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .resource-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .resource-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .resource-card p {
+            color: #bbb;
+            margin-bottom: 20px;
+        }
+        
+        .resource-link {
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-link:hover {
+            color: white;
+        }
+        
+        .resource-link span {
+            margin-left: 5px;
+        }
+        
+        .cta-banner {
+            background-color: var(--accent);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: white;
+            color: var(--accent);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: white;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+        }
+        
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--accent);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section {
+            width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .footer-section p, .footer-section li {
+            margin-bottom: 10px;
+            color: #bbb;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: #bbb;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #999;
+        }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            font-size: 20px;
+        }
+        
+        .scroll-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            background-color: var(--secondary);
+        }
+        
+        .bubble {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .tip-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-section {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🌿</span>
+                    EcoDrive
+                </a>
+                <ul class="nav-links">
+                    <li><a href="home.php">Home</a></li>
+                    <li><a href="tips.html" class="active">Eco Tips</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-title">
+        <div class="bubble" style="top: 20%; left: 10%; width: 80px; height: 80px; animation: float 8s ease-in-out infinite;"></div>
+        <div class="bubble" style="top: 60%; left: 15%; width: 120px; height: 120px; animation: float 12s ease-in-out infinite;"></div>
+        <div class="bubble" style="top: 30%; right: 20%; width: 100px; height: 100px; animation: float 10s ease-in-out infinite;"></div>
+        <div class="bubble" style="bottom: 10%; right: 10%; width: 70px; height: 70px; animation: float 9s ease-in-out infinite;"></div>
+        <div class="container">
+            <h1>Comprehensive Eco-Driving Tips</h1>
+            <p>Master the art of eco-friendly driving with our expert tips, techniques, and insights to save fuel, reduce emissions, and protect our planet.</p>
+        </div>
+    </section>
+
+    <section class="eco-tips-section">
+        <div class="container">
+            <div class="section-intro">
+                <h2>Maximize Your Eco-Driving Impact</h2>
+                <p>Eco-driving isn't just about saving fuel—it's a holistic approach to vehicle operation that reduces your environmental footprint while saving money and extending the life of your vehicle. Explore our categorized tips below to become an eco-driving expert.</p>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="driving">Driving Techniques</button>
+                <button class="tab-btn" data-tab="maintenance">Vehicle Maintenance</button>
+                <button class="tab-btn" data-tab="planning">Trip Planning</button>
+                <button class="tab-btn" data-tab="electric">Electric Vehicles</button>
+            </div>
+            
+            <div id="driving" class="tab-content active">
+                <!-- Previous driving tab content here -->
+            </div>
+            
+            <div id="maintenance" class="tab-content">
+                <div class="tip-list">
+                    <!-- First part of maintenance tips was already created -->
+                    
+                    <div class="tip-item">
+                        <div class="tip-header">
+                            <div class="tip-icon">🧠</div>
+                            <div>
+                                <h3 class="tip-title">Perform Emission System Checks</h3>
+                                <p class="tip-subtitle">Keep pollution control systems working</p>
+                            </div>
+                        </div>
+                        <div class="tip-body">
+                            <p>Don't ignore the check engine light. Many engine problems that trigger this warning directly affect emissions and fuel economy.</p>
+                            <p>Have your vehicle's emission system inspected regularly as part of your routine maintenance. A malfunctioning oxygen sensor, for example, can decrease fuel efficiency by up to 40%.</p>
+                            <div class="tip-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">💨</span>
+                                    <span>Fixing serious emissions problems can improve efficiency by 10-40%</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">🌱</span>
+                                    <span>Reduces harmful pollutants like nitrogen oxides and hydrocarbons</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="planning" class="tab-content">
+                <div class="tip-list">
+                    <div class="tip-item">
+                        <div class="tip-header">
+                            <div class="tip-icon">🗺️</div>
+                            <div>
+                                <h3 class="tip-title">Optimize Your Route</h3>
+                                <p class="tip-subtitle">Plan ahead to avoid inefficiencies</p>
+                            </div>
+                        </div>
+                        <div class="tip-body">
+                            <p>Plan your route before starting your journey to avoid getting lost or taking unnecessarily long routes. Use navigation apps that provide real-time traffic information to avoid congestion.</p>
+                            <p>When possible, choose routes with fewer stops and traffic lights, even if the distance is slightly longer, as constant stopping and starting consumes more fuel.</p>
+                            <div class="tip-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">🚦</span>
+                                    <span>Avoiding congestion can improve fuel economy by up to 20%</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">⏱️</span>
+                                    <span>Saves time and reduces stress in addition to saving fuel</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-header">
+                            <div class="tip-icon">📦</div>
+                            <div>
+                                <h3 class="tip-title">Combine Errands</h3>
+                                <p class="tip-subtitle">Trip-chaining for efficiency</p>
+                            </div>
+                        </div>
+                        <div class="tip-body">
+                            <p>Combine multiple errands into a single trip. Several short trips taken from a cold start can use twice as much fuel as a longer trip covering the same distance when the engine is warm.</p>
+                            <p>Plan your route to handle errands in a logical order that minimizes backtracking and total distance traveled.</p>
+                            <div class="tip-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">🔄</span>
+                                    <span>Can reduce total distance traveled by 10-20%</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">❄️</span>
+                                    <span>Cold engines use up to 2x more fuel in the first mile</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-header">
+                            <div class="tip-icon">👥</div>
+                            <div>
+                                <h3 class="tip-title">Carpool When Possible</h3>
+                                <p class="tip-subtitle">Share rides, split costs, reduce emissions</p>
+                            </div>
+                        </div>
+                        <div class="tip-body">
+                            <p>Share rides with coworkers, friends, or family members who have similar destinations. This reduces the total number of vehicles on the road, cutting overall emissions and congestion.</p>
+                            <p>Many regions have dedicated carpool lanes that allow vehicles with multiple occupants to avoid traffic, saving time and fuel.</p>
+                            <div class="tip-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">👪</span>
+                                    <span>Each person who carpools saves ~$600-$1,200 annually</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">🌎</span>
+                                    <span>Reduces carbon footprint by sharing vehicle emissions</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-header">
+                            <div class="tip-icon">⏰</div>
+                            <div>
+                                <h3 class="tip-title">Time Your Trips</h3>
+                                <p class="tip-subtitle">Avoid peak congestion periods</p>
+                            </div>
+                        </div>
+                        <div class="tip-body">
+                            <p>When possible, schedule your travel to avoid rush hour and peak traffic times. Stop-and-go driving in congested conditions significantly increases fuel consumption and emissions.</p>
+                            <p>Traffic apps can provide predictions on the best time to travel your regular routes based on historical data.</p>
+                            <div class="tip-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">🚗</span>
+                                    <span>Traffic jams can reduce fuel economy by 30% or more</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">🕒</span>
+                                    <span>Off-peak travel can save significant time and stress</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-header">
+                            <div class="tip-icon">🚲</div>
+                            <div>
+                                <h3 class="tip-title">Consider Alternatives</h3>
+                                <p class="tip-subtitle">When not to drive</p>
+                            </div>
+                        </div>
+                        <div class="tip-body">
+                            <p>For short trips (under 2 miles), consider walking, cycling, or using an electric scooter instead of driving. These options produce zero emissions and provide health benefits.</p>
+                            <p>Public transportation is often more eco-friendly per passenger than individual vehicles, especially for commuting to city centers where parking may be difficult or expensive.</p>
+                            <div class="tip-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">👟</span>
+                                    <span>40% of all car trips are less than 2 miles</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">🚌</span>
+                                    <span>Full buses emit 1/10th the CO2 per passenger mile as cars</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-header">
+                            <div class="tip-icon">☁️</div>
+                            <div>
+                                <h3 class="tip-title">Check Weather Conditions</h3>
+                                <p class="tip-subtitle">Plan around Mother Nature</p>
+                            </div>
+                        </div>
+                        <div class="tip-body">
+                            <p>Strong headwinds can reduce highway fuel economy by up to 10%. If possible, adjust your travel schedule to avoid driving in severe weather conditions.</p>
+                            <p>Extreme cold significantly reduces fuel economy, especially for short trips. In winter, try to combine trips and allow your engine to warm up naturally by driving gently rather than idling.</p>
+                            <div class="tip-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">❄️</span>
+                                    <span>Cold weather can reduce EV range by up to 40%</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">🌧️</span>
+                                    <span>Wet roads can increase rolling resistance by 10%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="electric" class="tab-content">
+                <div class="tip-list">
+                    <div class="tip-item">
+                        <div class="tip-header">
+                            <div class="tip-icon">⚡</div>
+                            <div>
+                                <h3 class="tip-title">Optimize Charging Times</h3>
+                                <p class="tip-subtitle">Schedule for grid efficiency</p>
+                            </div>
+                        </div>
+                        <div class="tip-body">
+                            <p>When possible, charge your electric vehicle during off-peak hours (typically overnight). This reduces strain on the electrical grid and often costs less if your utility offers time-of-use rates.</p>
+                            <p>Many EVs allow you to schedule charging times directly through the vehicle's interface or smartphone app.</p>
+                            <div class="tip-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">💰</span>
+                                    <span>Off-peak charging can save 50-60% on electricity costs</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">🔋</span>
+                                    <span>Reduces carbon intensity by using cleaner grid energy</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-header">
+                            <div class="tip-icon">🔄</div>
+                            <div>
+                                <h3 class="tip-title">Master Regenerative Braking</h3>
+                                <p class="tip-subtitle">Recapture energy while slowing down</p>
+                            </div>
+                        </div>
+                        <div class="tip-body">
+                            <p>Use regenerative braking to maximize efficiency. Anticipate stops early and gradually lift off the accelerator to let the regenerative braking system recapture energy instead of using the brake pedal.</p>
+                            <p>Many EVs offer different regenerative braking modes. Experiment with these settings to find the most efficient option for your driving style.</p>
+                            <div class="tip-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">⚡</span>
+                                    <span>Can recover up to 70% of energy during deceleration</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">🛞</span>
+                                    <span>Reduces brake pad wear, extending maintenance intervals</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-header">
+                            <div class="tip-icon">🌡️</div>
+                            <div>
+                                <h3 class="tip-title">Pre-condition While Plugged In</h3>
+                                <p class="tip-subtitle">Warm up or cool down on grid power</p>
+                            </div>
+                        </div>
+                        <div class="tip-body">
+                            <p>Use your EV's pre-conditioning feature to warm up or cool down the cabin while still connected to a charger. This preserves battery power for driving range.</p>
+                            <p>Many EVs allow you to schedule pre-conditioning through their mobile apps, so your car is comfortable and ready to go when you need it.</p>
+                            <div class="tip-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">❄️</span>
+                                    <span>Climate control can reduce EV range by 10-40%</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">📱</span>
+                                    <span>Pre-conditioning eliminates range impact of initial climate needs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-header">
+                            <div class="tip-icon">🏁</div>
+                            <div>
+                                <h3 class="tip-title">Maintain Moderate Speed</h3>
+                                <p class="tip-subtitle">Find the sweet spot for efficiency</p>
+                            </div>
+                        </div>
+                        <div class="tip-body">
+                            <p>EVs are typically most efficient at moderate speeds (around 15-60 mph). At highway speeds above 65-70 mph, aerodynamic drag increases significantly, reducing range.</p>
+                            <p>Using cruise control on flat terrain can help maintain a consistent, efficient speed.</p>
+                            <div class="tip-stats">
+                                <div class="stat-item">
+                                    <span class="stat-icon">🏎️</span>
+                                    <span>Driving at 75 mph vs. 65 mph can reduce range by 10-15%</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">🏎️</span>
+                                    <span>Driving at 75 mph vs. 65 mph can reduce range by 10-15%</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">⚡</span>
+                                    <span>Most EVs are most efficient around 15-60 mph</span>
+                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tip-item">
+                                        <div class="tip-header">
+                                            <div class="tip-icon">❄️</div>
+                                            <div>
+                                                <h3 class="tip-title">Use Climate Controls Wisely</h3>
+                                                <p class="tip-subtitle">Minimize energy-intensive systems</p>
+                                            </div>
+                                        </div>
+                                        <div class="tip-body">
+                                            <p>Instead of using the cabin heater, which draws significant power, try using seat and steering wheel heaters first, which are more energy-efficient for keeping you comfortable.</p>
+                                            <p>In mild weather, consider using ventilation instead of air conditioning when possible. When AC is necessary, avoid using the "Max" setting for extended periods.</p>
+                                            <div class="tip-stats">
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">🔥</span>
+                                                    <span>Cabin heating can reduce winter range by up to a 30%</span>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">🪑</span>
+                                                    <span>Seat heaters use about 1/10 the energy of cabin heating</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tip-item">
+                                        <div class="tip-header">
+                                            <div class="tip-icon">📊</div>
+                                            <div>
+                                                <h3 class="tip-title">Monitor Energy Consumption</h3>
+                                                <p class="tip-subtitle">Use your EV's energy tools</p>
+                                            </div>
+                                        </div>
+                                        <div class="tip-body">
+                                            <p>Pay attention to your vehicle's energy consumption displays to understand how your driving style affects efficiency. Most EVs provide detailed feedback about energy usage patterns.</p>
+                                            <p>Use this data to adjust your driving habits and identify which behaviors are most impactful for extending your range.</p>
+                                            <div class="tip-stats">
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">📱</span>
+                                                    <span>Real-time feedback can improve efficiency by 5-10%</span>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">📈</span>
+                                                    <span>Historical data helps optimize routes and habits</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                
+                                <!-- Add driving tab content which was missing -->
+                                <div id="driving" class="tab-content active">
+                                <div class="tip-list">
+                                    <div class="tip-item">
+                                        <div class="tip-header">
+                                            <div class="tip-icon">🚀</div>
+                                            <div>
+                                                <h3 class="tip-title">Accelerate Gently</h3>
+                                                <p class="tip-subtitle">Easy on the pedal</p>
+                                            </div>
+                                        </div>
+                                        <div class="tip-body">
+                                            <p>Aggressive acceleration burns more fuel. Try to press the accelerator pedal gently and gradually increase speed. Aim to take about 5 seconds to accelerate to 15 mph from a stop in normal traffic situations.</p>
+                                            <p>Modern cars are designed to operate most efficiently when acceleration is smooth and moderate - there's no need to "warm up" the engine by revving it.</p>
+                                            <div class="tip-stats">
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">⛽</span>
+                                                    <span>Gentle acceleration can improve fuel economy by up to 20%</span>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">🔧</span>
+                                                    <span>Reduces wear and tear on your engine and transmission</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tip-item">
+                                        <div class="tip-header">
+                                            <div class="tip-icon">🛑</div>
+                                            <div>
+                                                <h3 class="tip-title">Anticipate Traffic Flow</h3>
+                                                <p class="tip-subtitle">Look ahead and plan your moves</p>
+                                            </div>
+                                        </div>
+                                        <div class="tip-body">
+                                            <p>Look far ahead to anticipate stops and slowdowns. When you see a red light or stopped traffic ahead, release the accelerator early and coast to reduce speed instead of braking hard at the last moment.</p>
+                                            <p>Maintaining a greater following distance gives you more time to react smoothly to changes in traffic flow, reducing the need for sudden braking and acceleration.</p>
+                                            <div class="tip-stats">
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">🚦</span>
+                                                    <span>Reduces fuel consumption at intersections by up to 30%</span>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">🛡️</span>
+                                                    <span>Improves safety while reducing emissions</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tip-item">
+                                        <div class="tip-header">
+                                            <div class="tip-icon">⏱️</div>
+                                            <div>
+                                                <h3 class="tip-title">Avoid Excessive Idling</h3>
+                                                <p class="tip-subtitle">Turn it off when waiting</p>
+                                            </div>
+                                        </div>
+                                        <div class="tip-body">
+                                            <p>If you expect to be stopped for more than 30 seconds (except in traffic), turn off your engine. Modern engines use very little extra fuel to restart, making it more efficient to turn off the engine than to idle.</p>
+                                            <p>Many newer vehicles come with automatic start-stop systems that handle this for you, cutting the engine when appropriate to save fuel.</p>
+                                            <div class="tip-stats">
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">⛽</span>
+                                                    <span>Idling can use a quarter to a half gallon of fuel per hour</span>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">🌳</span>
+                                                    <span>Each 10 minutes of idling avoided saves 1 pound of CO2</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tip-item">
+                                        <div class="tip-header">
+                                            <div class="tip-icon">🌡️</div>
+                                            <div>
+                                                <h3 class="tip-title">Use A/C Sparingly</h3>
+                                                <p class="tip-subtitle">Smart climate control</p>
+                                            </div>
+                                        </div>
+                                        <div class="tip-body">
+                                            <p>Air conditioning can increase fuel consumption by up to 20% in city driving. At speeds below 40 mph, open windows are generally more efficient than A/C. At higher speeds, A/C may be more efficient due to increased drag from open windows.</p>
+                                            <p>On mild days, use the flow-through ventilation instead of A/C, and park in the shade when possible to keep your car cooler.</p>
+                                            <div class="tip-stats">
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">❄️</span>
+                                                    <span>A/C can consume 0.2-0.4 gallons of extra fuel per hour</span>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">🌞</span>
+                                                    <span>Parking in shade can reduce cabin temperature by 20°F</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tip-item">
+                                        <div class="tip-header">
+                                            <div class="tip-icon">🏎️</div>
+                                            <div>
+                                                <h3 class="tip-title">Maintain Steady Speed</h3>
+                                                <p class="tip-subtitle">Cruise at optimal efficiency</p>
+                                            </div>
+                                        </div>
+                                        <div class="tip-body">
+                                            <p>Use cruise control on highways to maintain a constant speed, which is more efficient than small accelerations and decelerations. Most cars are most efficient between 45-65 mph.</p>
+                                            <p>Every 5 mph over 50 mph is like paying an additional $0.15-$0.30 per gallon of gas due to increased aerodynamic drag.</p>
+                                            <div class="tip-stats">
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">📉</span>
+                                                    <span>Fuel economy drops rapidly above 65 mph</span>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">📊</span>
+                                                    <span>Speed variations can reduce efficiency by 10-15%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tip-item">
+                                        <div class="tip-header">
+                                            <div class="tip-icon">⚙️</div>
+                                            <div>
+                                                <h3 class="tip-title">Shift Efficiently</h3>
+                                                <p class="tip-subtitle">For manual transmissions</p>
+                                            </div>
+                                        </div>
+                                        <div class="tip-body">
+                                            <p>For manual transmissions, shift up through the gears as soon as possible without laboring the engine. The ideal RPM to shift varies by vehicle, but is typically between 2,000-2,500 RPM for gasoline engines.</p>
+                                            <p>Skip gears when appropriate (e.g., shifting from 2nd directly to 4th) during gradual acceleration to keep the engine at its most efficient operating range.</p>
+                                            <div class="tip-stats">
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">⚙️</span>
+                                                    <span>Proper shifting can improve economy by 5-15%</span>
+                                                </div>
+                                                <div class="stat-item">
+                                                    <span class="stat-icon">📊</span>
+                                                    <span>Lower RPMs generally use less fuel</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+                                </section>
+                                
+                                <section class="resources">
+                                <div class="container">
+                                    <div class="resources-title">
+                                        <h2>Additional Eco-Driving Resources</h2>
+                                        <p>Expand your knowledge and enhance your eco-driving skills with these valuable resources.</p>
+                                    </div>
+                                    <div class="resources-grid">
+                                        <div class="resource-card">
+                                            <div class="resource-icon">📊</div>
+                                            <h3>Fuel Economy Calculator</h3>
+                                            <p>Track and analyze your fuel consumption over time to see how your eco-driving habits are paying off.</p>
+                                            <a href="#" class="resource-link">
+                                                Access Tool <span>→</span>
+                                            </a>
+                                        </div>
+                                        
+                                        <div class="resource-card">
+                                            <div class="resource-icon">📱</div>
+                                            <h3>Recommended Apps</h3>
+                                            <p>Our curated selection of smartphone applications to help you master eco-driving techniques.</p>
+                                            <a href="#" class="resource-link">
+                                                View Apps <span>→</span>
+                                            </a>
+                                        </div>
+                                        
+                                        <div class="resource-card">
+                                            <div class="resource-icon">📚</div>
+                                            <h3>In-Depth Guides</h3>
+                                            <p>Comprehensive guides on specific eco-driving topics including advanced techniques for different conditions.</p>
+                                            <a href="#" class="resource-link">
+                                                Read Guides <span>→</span>
+                                            </a>
+                                        </div>
+                                        
+                                        <div class="resource-card">
+                                            <div class="resource-icon">🎓</div>
+                                            <h3>Online Courses</h3>
+                                            <p>Free and premium online courses to help you become a certified eco-driving expert.</p>
+                                            <a href="#" class="resource-link">
+                                                Find Courses <span>→</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                </section>
+                                
+                                
+                                
+                                <footer>
+                                <div class="container">
+                                    <div class="footer-content">
+                                        <div class="footer-section">
+                                            <h3>EcoDrive</h3>
+                                            <p>Empowering drivers to reduce their environmental impact through practical, effective eco-driving techniques and resources.</p>
+                                        </div>
+                                        <div class="footer-section">
+                                            <h3>Quick Links</h3>
+                                            <ul>
+                                                <li><a href="home.php">Home</a></li>
+                                                <li><a href="tips.html">Eco Tips</a></li>
+                                                <li><a href="about.html">About Us</a></li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="footer-section">
+                                            <h3>Contact Us</h3>
+                                            <ul>
+                                                <li><a href="mailto:info@ecodrive.com">harsh.rshh@gmail.com.com</a></li>
+                                                <li><a href="#">+91 97985-31147</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="copyright">
+                                        <p>&copy; 2025 EcoDrive. All rights reserved. Created to promote sustainable driving practices worldwide.</p>
+                                    </div>
+                                </div>
+                                </footer>
+                                
+                                <div class="scroll-to-top">
+                                ↑
+                                </div>
+                                
+                                <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    // Tab functionality
+                                    const tabBtns = document.querySelectorAll('.tab-btn');
+                                    const tabContents = document.querySelectorAll('.tab-content');
+                                    
+                                    tabBtns.forEach(button => {
+                                        button.addEventListener('click', () => {
+                                            // Remove active class from all buttons and contents
+                                            tabBtns.forEach(btn => btn.classList.remove('active'));
+                                            tabContents.forEach(content => content.classList.remove('active'));
+                                            
+                                            // Add active class to clicked button and corresponding content
+                                            button.classList.add('active');
+                                            const tabId = button.getAttribute('data-tab');
+                                            document.getElementById(tabId).classList.add('active');
+                                        });
+                                    });
+                                    
+                                    // Scroll to top button
+                                    const scrollBtn = document.querySelector('.scroll-to-top');
+                                    
+                                    window.addEventListener('scroll', () => {
+                                        if (window.pageYOffset > 300) {
+                                            scrollBtn.classList.add('active');
+                                        } else {
+                                            scrollBtn.classList.remove('active');
+                                        }
+                                    });
+                                    
+                                    scrollBtn.addEventListener('click', () => {
+                                        window.scrollTo({
+                                            top: 0,
+                                            behavior: 'smooth'
+                                        });
+                                    });
+                                    
+                                    // Add bubble animation
+                                    function createBubbles() {
+                                        const bubbleContainer = document.querySelector('.page-title');
+                                        const bubbleCount = 5;
+                                        
+                                        for (let i = 0; i < bubbleCount; i++) {
+                                            const bubble = document.createElement('div');
+                                            bubble.classList.add('bubble');
+                                            
+                                            const size = Math.random() * 100 + 50;
+                                            const left = Math.random() * 100;
+                                            const delay = Math.random() * 5;
+                                            const duration = Math.random() * 10 + 5;
+                                            
+                                            bubble.style.width = `${size}px`;
+                                            bubble.style.height = `${size}px`;
+                                            bubble.style.left = `${left}%`;
+                                            bubble.style.top = `${Math.random() * 100}%`;
+                                            bubble.style.animationDelay = `${delay}s`;
+                                            bubble.style.animationDuration = `${duration}s`;
+                                            
+                                            bubbleContainer.appendChild(bubble);
+                                        }
+                                    }
+                                    
+                                    // Uncomment to add more dynamic bubbles
+                                    // createBubbles();
+                                });
+                                </script>

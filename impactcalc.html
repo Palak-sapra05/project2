@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoDrive - Impact Calculator</title>
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --secondary: #27ae60;
+            --dark: #1e272e;
+            --light: #f5f6fa;
+            --accent: #3498db;
+            --accent-secondary: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--dark);
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .page-title {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-title h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-title p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .bubble {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+        
+        .calculator-section {
+            padding: 60px 0;
+            background-color: #fff;
+        }
+        
+        .calculator-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        .calculator-intro h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .calculator-intro p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .calculator-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .calculator-tabs {
+            display: flex;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .calculator-tab {
+            padding: 15px 25px;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .calculator-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            background-color: white;
+        }
+        
+        .calculator-content {
+            padding: 30px;
+        }
+        
+        .calculator-panel {
+            display: none;
+        }
+        
+        .calculator-panel.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .input-group input[type="number"],
+        .input-group input[type="text"],
+        .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group input[type="number"]:focus,
+        .input-group input[type="text"]:focus,
+        .input-group select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+        }
+        
+        .input-group small {
+            display: block;
+            color: #888;
+            margin-top: 5px;
+            font-size: 0.85rem;
+        }
+        
+        .input-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .input-column {
+            flex: 1;
+        }
+        
+        .btn-calculate {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 30px auto 0;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+        
+        .btn-calculate:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+        }
+        
+        .results-section {
+            display: none;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        
+        .results-section.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .results-header h3 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .result-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .result-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .result-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .result-label {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .result-comment {
+            font-size: 0.9rem;
+            color: #888;
+            line-height: 1.5;
+        }
+        
+        .impact-visualizer {
+            margin-top: 40px;
+        }
+        
+        .impact-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .impact-header h3 {
+            font-size: 1.6rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .bar-chart {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .bar-group {
+            margin-top: 15px;
+        }
+        
+        .bar-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .bar-container {
+            height: 25px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .bar {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 4px;
+            transition: width 1.5s ease;
+            position: relative;
+        }
+        
+        .bar-value {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .recommendations {
+            margin-top: 40px;
+            padding: 25px;
+            background-color: #f0f9f4;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .recommendations h4 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .reco-list {
+            list-style-type: none;
+        }
+        
+        .reco-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .reco-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .reco-icon {
+            background-color: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .reco-text {
+            flex: 1;
+        }
+        
+        .reco-text strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #444;
+        }
+        
+        .reco-text p {
+            color: #666;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        
+        .share-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .share-section h4 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .share-btn.facebook {
+            background-color: #3b5998;
+        }
+        
+        .share-btn.twitter {
+            background-color: #1da1f2;
+        }
+        
+        .share-btn.linkedin {
+            background-color: #0077b5;
+        }
+        
+        .share-btn.email {
+            background-color: #666;
+        }
+        
+        .tips-section {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .tips-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .tips-header h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .tip-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tip-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .tip-content {
+            padding: 25px;
+        }
+        
+        .tip-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .tip-content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .tip-link {
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .tip-link:hover {
+            color: var(--secondary);
+        }
+        
+        .tip-link span {
+            margin-left: 5px;
+        }
+        
+        .cta-banner {
+            background-color: var(--accent);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: white;
+            color: var(--accent);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: white;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+        }
+        
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--accent);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section {
+            width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .footer-section p, .footer-section li {
+            margin-bottom: 10px;
+            color: #bbb;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: #bbb;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #999;
+        }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            font-size: 20px;
+        }
+        
+        .scroll-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* Range slider styling */
+        .slider-container {
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #e0e0e0;
+            outline: none;
+        }
+        
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .range-slider::-webkit-slider-thumb:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+        
+        .range-values {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            color: #888;
+            font-size: 0.85rem;
+        }
+        
+        /* Toggle switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .toggle-label {
+            margin-right: 15px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--primary);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+        
+        .toggle-text {
+            margin-left: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .input-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-section {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🌿</span>
+                    EcoDrive
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="tips.html">Eco Tips</a></li>
+                    <li><a href="#" class="active">Impact Calculator</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">About Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-title">
+        <div class="bubble" style="top: 20%; left: 10%; width: 80px; height: 80px; animation: float 8s ease-in-out infinite;"></div>
+        <div class="bubble" style="top: 60%; left: 15%; width: 120px; height: 120px; animation: float 12s ease-in-out infinite;"></div>
+        <div class="bubble" style="top: 30%; right: 20%; width: 100px; height: 100px; animation: float 10s ease-in-out infinite;"></div>
+        <div class="bubble" style="bottom: 10%; right: 10%; width: 70px; height: 70px; animation: float 9s ease-in-out infinite;"></div>
+        <div class="container">
+            <h1>Eco-Driving Impact Calculator</h1>
+            <p>Calculate your potential fuel savings, emission reductions, and financial benefits from implementing eco-driving practices</p>
+        </div>
+    </section>
+
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator-intro">
+                <h2>Measure Your Eco-Driving Impact</h2>
+                <p>Our calculator helps you understand how eco-driving techniques can benefit your wallet and the environment. Enter your vehicle information and current driving habits to see your potential savings.</p>
+            </div>
+            
+            <div class="calculator-container">
+                <div class="calculator-tabs">
+                    <button class="calculator-tab active" data-tab="personal">Personal Vehicle</button>
+                    <button class="calculator-tab" data-tab="fleet">Fleet Management</button>
+                </div>
+                
+                <div class="calculator-content">
+                    <!-- Personal Vehicle Calculator Panel -->
+                    <div class="calculator-panel active" id="personal">
+                        <div class="input-row">
+                            <div class="input-column">
+                                <div class="input-group">
+                                    <label for="vehicle-type">Vehicle Type</label>
+                                    <select id="vehicle-type">
+                                        <option value="small-car">Small Car / Sedan</option>
+                                        <option value="mid-car">Mid-size Car</option>
+                                        <option value="large-car">Large Car / Full-size Sedan</option>
+                                        <option value="suv">SUV / Crossover</option>
+                                        <option value="pickup">Pickup Truck</option>
+                                        <option value="minivan">Minivan</option>
+                                        <option value="hybrid">Hybrid Vehicle</option>
+                                        <option value="plugin-hybrid">Plug-in Hybrid</option>
+                                        <option value="electric">Electric Vehicle</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-column">
+                                <div class="input-group">
+                                    <label for="fuel-type">Fuel Type</label>
+                                    <select id="fuel-type">
+                                        <option value="gasoline">Gasoline</option>
+                                        <option value="diesel">Diesel</option>
+                                        <option value="electric">Electric</option>
+                                        <option value="hybrid">Hybrid (Gas/Electric)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-row">
+                            <div class="input-column">
+                                <div class="input-group">
+                                    <label for="annual-mileage">Annual Mileage</label>
+                                    <input type="number" id="annual-mileage" placeholder="e.g., 12000" value="12000">
+                                    <small>Average annual miles driven</small>
+                                </div>
+                            </div>
+                            <div class="input-column">
+                                <div class="input-group">
+                                    <label for="current-mpg">Current Fuel Economy (MPG)</label>
+                                    <input type="number" id="current-mpg" placeholder="e.g., 25" value="25">
+                                    <small>Your current miles per gallon</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-row">
+                            <div class="input-column">
+                                <div class="input-group">
+                                    <label for="fuel-price">Fuel Price ($ per gallon)</label>
+                                    <input type="number" id="fuel-price" placeholder="e.g., 3.50" value="3.50" step="0.01">
+                                    <small>Current average fuel price in your area</small>
+                                </div>
+                            </div>
+                            <div class="input-column">
+                                <div class="input-group">
+                                    <label for="driving-style">Current Driving Style</label>
+                                    <select id="driving-style">
+                                        <option value="aggressive">Aggressive (Rapid acceleration, hard braking)</option>
+                                        <option value="moderate" selected>Moderate (Mix of habits)</option>
+                                        <option value="eco">Already Eco-conscious</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Eco-Driving Techniques You're Willing to Adopt</label>
+                            <div class="toggle-container">
+                                <span class="toggle-label">Gentle Acceleration</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="gentle-accel" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-text">Up to 20% fuel savings</span>
+                            </div>
+                            <div class="toggle-container">
+                                <span class="toggle-label">Maintain Steady Speed</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="steady-speed" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-text">Up to 15% fuel savings</span>
+                            </div>
+                            <div class="toggle-container">
+                                <span class="toggle-label">Anticipate Traffic Flow</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="anticipate-traffic" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-text">Up to 10% fuel savings</span>
+                            </div>
+                            <div class="toggle-container">
+                                <span class="toggle-label">Reduce Idling</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="reduce-idling" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-text">Up to 8% fuel savings</span>
+                            </div>
+                            <div class="toggle-container">
+                                <span class="toggle-label">Proper Tire Pressure</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="tire-pressure" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-text">Up to 3% fuel savings</span>
+                            </div>
+                            <div class="toggle-container">
+                                <span class="toggle-label">Remove Excess Weight</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="remove-weight">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-text">Up to 2% fuel savings per 100 lbs</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-calculate" id="calculate-personal">Calculate My Impact</button>
+                        
+                        <div class="results-section" id="personal-results">
+                            <div class="results-header">
+                                <h3>Your Eco-Driving Impact Results</h3>
+                                <p>Here's what you can achieve with your selected eco-driving practices</p>
+                            </div>
+                            
+                            <div class="results-grid">
+                                <div class="result-card">
+                                    <div class="result-icon">💰</div>
+                                    <div class="result-value" id="annual-savings">$0</div>
+                                    <div class="result-label">Annual Fuel Savings</div>
+                                    <div class="result-comment">Money saved from reduced fuel consumption</div>
+                                </div>
+                                
+                                <div class="result-card">
+                                    <div class="result-icon">⛽</div>
+                                    <div class="result-value" id="fuel-reduction">0</div>
+                                    <div class="result-label">Gallons of Fuel Saved</div>
+                                    <div class="result-comment">Annual reduction in fuel consumption</div>
+                                </div>
+                                
+                                <div class="result-card">
+                                    <div class="result-icon">🌍</div>
+                                    <div class="result-value" id="co2-reduction">0</div>
+                                    <div class="result-label">CO₂ Emissions Reduction (lbs)</div>
+                                    <div class="result-comment">Annual reduction in carbon dioxide emissions</div>
+                                </div>
+                                
+                                <div class="result-card">
+                                    <div class="result-icon">🌱</div>
+                                    <div class="result-value" id="tree-equivalent">0</div>
+                                    <div class="result-label">Equivalent Trees Planted</div>
+                                    <div class="result-comment">Environmental impact represented in trees</div>
+                                </div>
+                            </div>
+                            
+                            <div class="impact-visualizer">
+                                <div class="impact-header">
+                                    <h3>Your Impact Visualization</h3>
+                                    <p>See how your eco-driving improvements stack up</p>
+                                </div>
+                                
+                                <div class="bar-chart">
+                                    <div class="bar-group">
+                                        <span class="bar-label">Fuel Consumption Reduction</span>
+                                        <div class="bar-container">
+                                            <div class="bar" id="fuel-bar" style="width: 0%">
+                                                <span class="bar-value">0%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bar-group">
+                                        <span class="bar-label">CO₂ Emission Reduction</span>
+                                        <div class="bar-container">
+                                            <div class="bar" id="emission-bar" style="width: 0%">
+                                                <span class="bar-value">0%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bar-group">
+                                        <span class="bar-label">Cost Savings</span>
+                                        <div class="bar-container">
+                                            <div class="bar" id="cost-bar" style="width: 0%">
+                                                <span class="bar-value">0%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="recommendations">
+                                <h4>Personalized Recommendations</h4>
+                                <ul class="reco-list" id="personal-recommendations">
+                                    <!-- Recommendations will be populated here -->
+                                </ul>
+                            </div>
+                            
+                            <div class="share-section">
+                                <h4>Share Your Impact</h4>
+                                <p>Inspire others by sharing your potential environmental impact</p>
+                                <div class="share-buttons">
+                                    <a href="#" class="share-btn facebook">f</a>
+                                    <a href="#" class="share-btn twitter">t</a>
+                                    <a href="#" class="share-btn linkedin">in</a>
+                                    <a href="#" class="share-btn email">✉</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fleet Management Calculator Panel -->
+                    <div class="calculator-panel" id="fleet">
+                        <div class="input-row">
+                            <div class="input-column">
+                                <div class="input-group">
+                                    <label for="fleet-size">Fleet Size</label>
+                                    <input type="number" id="fleet-size" placeholder="e.g., 10" value="10">
+                                    <small>Number of vehicles in your fleet</small>
+                                </div>
+                            </div>
+                            <div class="input-column">
+                                <div class="input-group">
+                                    <label for="fleet-type">Predominant Vehicle Type</label>
+                                    <select id="fleet-type">
+                                        <option value="passenger">Passenger Cars</option>
+                                        <option value="delivery">Delivery Vans</option>
+                                        <option value="light-trucks">Light Trucks</option>
+                                        <option value="heavy-trucks">Heavy Trucks</option>
+                                        <option value="mixed">Mixed Fleet</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-row">
+                            <div class="input-column">
+                                <div class="input-group">
+                                    <label for="fleet-mileage">Average Annual Mileage per Vehicle</label>
+                                    <input type="number" id="fleet-mileage" placeholder="e.g., 20000" value="20000">
+                                    <small>Average miles driven per vehicle annually</small>
+                                </div>
+                            </div>
+                            <div class="input-column">
+                                <div class="input-group">
+                                    <label for="fleet-mpg">Average Fuel Economy (MPG)</label>
+                                    <input type="number" id="fleet-mpg" placeholder="e.g., 18" value="18">
+                                    <small>Average miles per gallon across your fleet</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-row">
+                            <div class="input-column">
+                                <div class="input-group">
+                                    <label for="fleet-fuel-price">Fuel Price ($ per gallon)</label>
+                                    <input type="number" id="fleet-fuel-price" placeholder="e.g., 3.50" value="3.50" step="0.01">
+                                    <small>Current average fuel price in your area</small>
+                                </div>
+                            </div>
+                            <div class="input-column">
+                                <div class="input-group">
+                                    <label for="driver-training">Current Driver Training Level</label>
+                                    <select id="driver-training">
+                                        <option value="none">No Eco-driving Training</option>
+                                        <option value="basic">Basic Training</option>
+                                        <option value="advanced">Advanced Eco-driving Training</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Fleet Management Eco-Initiatives</label>
+                            <div class="toggle-container">
+                                <span class="toggle-label">Driver Training Program</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="fleet-training" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-text">Up to 10% fleet-wide improvement</span>
+                            </div>
+                            <div class="toggle-container">
+                                <span class="toggle-label">Telematics Monitoring</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="telematics" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-text">Up to 8% improvement through feedback</span>
+                            </div>
+                            <div class="toggle-container">
+                                <span class="toggle-label">Maintenance Optimization</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="maintenance" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-text">Up to 5% efficiency improvement</span>
+                            </div>
+                            <div class="toggle-container">
+                                <span class="toggle-label">Route Optimization</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="route-optimization">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-text">Up to 12% mileage reduction</span>
+                            </div>
+                            <div class="toggle-container">
+                                <span class="toggle-label">Idle Reduction Policy</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="idle-policy">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-text">Up to 6% fuel reduction</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-calculate" id="calculate-fleet">Calculate Fleet Impact</button>
+                        
+                        <div class="results-section" id="fleet-results">
+                            <div class="results-header">
+                                <h3>Your Fleet's Eco-Impact Results</h3>
+                                <p>Here's what your fleet can achieve with the selected initiatives</p>
+                            </div>
+                            
+                            <div class="results-grid">
+                                <div class="result-card">
+                                    <div class="result-icon">💰</div>
+                                    <div class="result-value" id="fleet-annual-savings">$0</div>
+                                    <div class="result-label">Annual Cost Savings</div>
+                                    <div class="result-comment">Total fleet-wide fuel cost reduction</div>
+                                </div>
+                                
+                                <div class="result-card">
+                                    <div class="result-icon">⛽</div>
+                                    <div class="result-value" id="fleet-fuel-reduction">0</div>
+                                    <div class="result-label">Gallons of Fuel Saved</div>
+                                    <div class="result-comment">Annual fleet-wide fuel reduction</div>
+                                </div>
+                                
+                                <div class="result-card">
+                                    <div class="result-icon">🌍</div>
+                                    <div class="result-value" id="fleet-co2-reduction">0</div>
+                                    <div class="result-label">CO₂ Emissions Reduction (tons)</div>
+                                    <div class="result-comment">Annual reduction in carbon emissions</div>
+                                </div>
+                                
+                                <div class="result-card">
+                                    <div class="result-icon">📈</div>
+                                    <div class="result-value" id="fleet-roi">0%</div>
+                                    <div class="result-label">ROI on Eco-Initiatives</div>
+                                    <div class="result-comment">Estimated return on investment</div>
+                                </div>
+                            </div>
+                            
+                            <div class="impact-visualizer">
+                                <div class="impact-header">
+                                    <h3>Fleet Impact Visualization</h3>
+                                    <p>See how your fleet initiatives stack up</p>
+                                </div>
+                                
+                                <div class="bar-chart">
+                                    <div class="bar-group">
+                                        <span class="bar-label">Fuel Consumption Reduction</span>
+                                        <div class="bar-container">
+                                            <div class="bar" id="fleet-fuel-bar" style="width: 0%">
+                                                <span class="bar-value">0%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bar-group">
+                                        <span class="bar-label">CO₂ Emission Reduction</span>
+                                        <div class="bar-container">
+                                            <div class="bar" id="fleet-emission-bar" style="width: 0%">
+                                                <span class="bar-value">0%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bar-group">
+                                        <span class="bar-label">Cost Savings</span>
+                                        <div class="bar-container">
+                                            <div class="bar" id="fleet-cost-bar" style="width: 0%">
+                                                <span class="bar-value">0%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="recommendations">
+                                <h4>Fleet Management Recommendations</h4>
+                                <ul class="reco-list" id="fleet-recommendations">
+                                    <!-- Recommendations will be populated here -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                
+                <div class="tips-section">
+                    <div class="container">
+                        <div class="tips-header">
+                            <h2>Top Eco-Driving Tips</h2>
+                            <p>Simple changes to your driving habits can lead to significant environmental and financial benefits</p>
+                        </div>
+                        
+                        <div class="tips-grid">
+                            <div class="tip-card">
+                                <div class="tip-img" style="background-image: url('/api/placeholder/400/200');"></div>
+                                <div class="tip-content">
+                                    <h3>Smooth Acceleration & Braking</h3>
+                                    <p>Gentle acceleration and anticipating stops can reduce fuel consumption by up to 20%. Practice gradual acceleration and coast to decelerate when safe.</p>
+                                    <a href="#" class="tip-link">Learn more <span>→</span></a>
+                                </div>
+                            </div>
+                            
+                            <div class="tip-card">
+                                <div class="tip-img" style="background-image: url('/api/placeholder/400/200');"></div>
+                                <div class="tip-content">
+                                    <h3>Maintain Optimal Speed</h3>
+                                    <p>Most vehicles achieve optimal fuel efficiency between 45-65 mph. Using cruise control on highways helps maintain a steady, efficient speed.</p>
+                                    <a href="#" class="tip-link">Learn more <span>→</span></a>
+                                </div>
+                            </div>
+                            
+                            <div class="tip-card">
+                                <div class="tip-img" style="background-image: url('/api/placeholder/400/200');"></div>
+                                <div class="tip-content">
+                                    <h3>Reduce Idle Time</h3>
+                                    <p>Turn off your engine when stopped for more than 30 seconds. Modern vehicles use less fuel restarting than idling for extended periods.</p>
+                                    <a href="#" class="tip-link">Learn more <span>→</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <section class="cta-banner">
+                    <div class="container">
+                        <div class="cta-content">
+                            <h2>Ready to Start Your Eco-Driving Journey?</h2>
+                            <p>Download our free eco-driving guide with actionable tips, checklists, and tracking tools to maximize your fuel efficiency and reduce your environmental impact.</p>
+                            <a href="#" class="btn">Download Free Guide</a>
+                            <a href="#" class="btn btn-outline">Join EcoDrive Community</a>
+                        </div>
+                    </div>
+                </section>
+                
+                <footer>
+                    <div class="container">
+                        <div class="footer-content">
+                            <div class="footer-section">
+                                <h3>EcoDrive</h3>
+                                <p>Promoting sustainable driving practices for a greener future. Our mission is to reduce the environmental impact of transportation through education and tools.</p>
+                            </div>
+                            
+                            <div class="footer-section">
+                                <h3>Quick Links</h3>
+                                <ul>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="tips.html">Eco Tips</a></li>
+                                    <li><a href="#">Impact Calculator</a></li>
+                                    <li><a href="#">Resources</a></li>
+                                    <li><a href="#">About Us</a></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="footer-section">
+                                <h3>Contact Us</h3>
+                                <ul>
+                                    <li>Email: info@ecodrive.org</li>
+                                    <li>Phone: (555) 123-4567</li>
+                                    <li>Address: 123 Green Street, Eco City, EC 12345</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="footer-section">
+                                <h3>Follow Us</h3>
+                                <ul>
+                                    <li><a href="#">Facebook</a></li>
+                                    <li><a href="#">Twitter</a></li>
+                                    <li><a href="#">Instagram</a></li>
+                                    <li><a href="#">LinkedIn</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="copyright">
+                            <p>&copy; 2025 EcoDrive. All Rights Reserved.</p>
+                        </div>
+                    </div>
+                </footer>
+                
+                <div class="scroll-to-top">↑</div>
+                
+                <script>
+                    // Tab switching functionality
+                    const tabButtons = document.querySelectorAll('.calculator-tab');
+                    const calculatorPanels = document.querySelectorAll('.calculator-panel');
+                    
+                    tabButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const tabId = button.getAttribute('data-tab');
+                            
+                            // Reset active states
+                            tabButtons.forEach(btn => btn.classList.remove('active'));
+                            calculatorPanels.forEach(panel => panel.classList.remove('active'));
+                            
+                            // Set active tab and panel
+                            button.classList.add('active');
+                            document.getElementById(tabId).classList.add('active');
+                            
+                            // Hide results sections when switching tabs
+                            document.getElementById('personal-results').classList.remove('active');
+                            document.getElementById('fleet-results').classList.remove('active');
+                        });
+                    });
+                    
+                    // Personal Calculator Functionality
+                    document.getElementById('calculate-personal').addEventListener('click', () => {
+                        // Get input values
+                        const annualMileage = parseFloat(document.getElementById('annual-mileage').value) || 12000;
+                        const currentMpg = parseFloat(document.getElementById('current-mpg').value) || 25;
+                        const fuelPrice = parseFloat(document.getElementById('fuel-price').value) || 3.50;
+                        const drivingStyle = document.getElementById('driving-style').value;
+                        
+                        // Get selected eco-driving techniques
+                        const gentleAccel = document.getElementById('gentle-accel').checked;
+                        const steadySpeed = document.getElementById('steady-speed').checked;
+                        const anticipateTraffic = document.getElementById('anticipate-traffic').checked;
+                        const reduceIdling = document.getElementById('reduce-idling').checked;
+                        const tirePressure = document.getElementById('tire-pressure').checked;
+                        const removeWeight = document.getElementById('remove-weight').checked;
+                        
+                        // Calculate improvement potential based on driving style and selected techniques
+                        let improvementFactor = 0;
+                        
+                        // Base improvement based on current style
+                        if (drivingStyle === 'aggressive') {
+                            improvementFactor += 0.18; // More room for improvement
+                        } else if (drivingStyle === 'moderate') {
+                            improvementFactor += 0.12; // Moderate room for improvement
+                        } else if (drivingStyle === 'eco') {
+                            improvementFactor += 0.05; // Already eco-conscious
+                        }
+                        
+                        // Add improvements from selected techniques
+                        if (gentleAccel) improvementFactor += 0.08;
+                        if (steadySpeed) improvementFactor += 0.06;
+                        if (anticipateTraffic) improvementFactor += 0.05;
+                        if (reduceIdling) improvementFactor += 0.03;
+                        if (tirePressure) improvementFactor += 0.02;
+                        if (removeWeight) improvementFactor += 0.01;
+                        
+                        // Cap the improvement factor at a realistic max value
+                        improvementFactor = Math.min(improvementFactor, 0.35);
+                        
+                        // Calculate impacts
+                        const improvedMpg = currentMpg * (1 + improvementFactor);
+                        const currentAnnualGallons = annualMileage / currentMpg;
+                        const improvedAnnualGallons = annualMileage / improvedMpg;
+                        const gallonsSaved = currentAnnualGallons - improvedAnnualGallons;
+                        const moneySaved = gallonsSaved * fuelPrice;
+                        const co2Reduced = gallonsSaved * 20; // Average 20 lbs CO2 per gallon
+                        const treesEquivalent = Math.round(co2Reduced / 48); // Average tree absorbs 48 lbs CO2 per year
+                        
+                        // Update results
+                        document.getElementById('annual-savings').textContent = '$' + moneySaved.toFixed(2);
+                        document.getElementById('fuel-reduction').textContent = gallonsSaved.toFixed(1);
+                        document.getElementById('co2-reduction').textContent = co2Reduced.toFixed(0);
+                        document.getElementById('tree-equivalent').textContent = treesEquivalent;
+                        
+                        // Update bars
+                        document.getElementById('fuel-bar').style.width = (improvementFactor * 100) + '%';
+                        document.getElementById('fuel-bar').querySelector('.bar-value').textContent = (improvementFactor * 100).toFixed(1) + '%';
+                        
+                        document.getElementById('emission-bar').style.width = (improvementFactor * 100) + '%';
+                        document.getElementById('emission-bar').querySelector('.bar-value').textContent = (improvementFactor * 100).toFixed(1) + '%';
+                        
+                        document.getElementById('cost-bar').style.width = (improvementFactor * 100) + '%';
+                        document.getElementById('cost-bar').querySelector('.bar-value').textContent = (improvementFactor * 100).toFixed(1) + '%';
+                        
+                        // Generate recommendations
+                        const recommendations = document.getElementById('personal-recommendations');
+                        recommendations.innerHTML = '';
+                        
+                        // Add personalized recommendations based on inputs
+                        if (drivingStyle === 'aggressive') {
+                            const recoItem = document.createElement('li');
+                            recoItem.className = 'reco-item';
+                            recoItem.innerHTML = `
+                                <div class="reco-icon">✓</div>
+                                <div class="reco-text">
+                                    <strong>Focus on Smooth Driving</strong>
+                                    <p>Your aggressive driving style presents the biggest opportunity for improvement. Try to accelerate gently and avoid hard braking to see significant fuel savings.</p>
+                                </div>
+                            `;
+                            recommendations.appendChild(recoItem);
+                        }
+                        
+                        if (!reduceIdling) {
+                            const recoItem = document.createElement('li');
+                            recoItem.className = 'reco-item';
+                            recoItem.innerHTML = `
+                                <div class="reco-icon">✓</div>
+                                <div class="reco-text">
+                                    <strong>Consider an Idle Reduction Strategy</strong>
+                                    <p>Turning off your engine when stopped for more than 30 seconds could save you up to 8% in fuel costs annually.</p>
+                                </div>
+                            `;
+                            recommendations.appendChild(recoItem);
+                        }
+                        
+                        if (!steadySpeed && annualMileage > 10000) {
+                            const recoItem = document.createElement('li');
+                            recoItem.className = 'reco-item';
+                            recoItem.innerHTML = `
+                                <div class="reco-icon">✓</div>
+                                <div class="reco-text">
+                                    <strong>Use Cruise Control on Highways</strong>
+                                    <p>With your high annual mileage, using cruise control on highways could significantly improve your fuel economy.</p>
+                                </div>
+                            `;
+                            recommendations.appendChild(recoItem);
+                        }
+                        
+                        // Show results section
+                        document.getElementById('personal-results').classList.add('active');
+                    });
+                    
+                    // Fleet Calculator Functionality
+                    document.getElementById('calculate-fleet').addEventListener('click', () => {
+                        // Get input values
+                        const fleetSize = parseInt(document.getElementById('fleet-size').value) || 10;
+                        const fleetMileage = parseFloat(document.getElementById('fleet-mileage').value) || 20000;
+                        const fleetMpg = parseFloat(document.getElementById('fleet-mpg').value) || 18;
+                        const fleetFuelPrice = parseFloat(document.getElementById('fleet-fuel-price').value) || 3.50;
+                        const driverTraining = document.getElementById('driver-training').value;
+                        
+                        // Get selected fleet initiatives
+                        const fleetTraining = document.getElementById('fleet-training').checked;
+                        const telematics = document.getElementById('telematics').checked;
+                        const maintenance = document.getElementById('maintenance').checked;
+                        const routeOptimization = document.getElementById('route-optimization').checked;
+                        const idlePolicy = document.getElementById('idle-policy').checked;
+                        
+                        // Calculate improvement potential based on current training and selected initiatives
+                        let improvementFactor = 0;
+                        let mileageReductionFactor = 0;
+                        
+                        // Base improvement based on current training
+                        if (driverTraining === 'none') {
+                            improvementFactor += 0.10; // More room for improvement
+                        } else if (driverTraining === 'basic') {
+                            improvementFactor += 0.05; // Some room for improvement
+                        } else if (driverTraining === 'advanced') {
+                            improvementFactor += 0.02; // Already advanced training
+                        }
+                        
+                        // Add improvements from selected initiatives
+                        if (fleetTraining) improvementFactor += 0.08;
+                        if (telematics) improvementFactor += 0.06;
+                        if (maintenance) improvementFactor += 0.04;
+                        if (idlePolicy) improvementFactor += 0.05;
+                        
+                        // Route optimization affects mileage
+                        if (routeOptimization) mileageReductionFactor += 0.10;
+                        
+                        // Cap the improvement factors at realistic max values
+                        improvementFactor = Math.min(improvementFactor, 0.30);
+                        mileageReductionFactor = Math.min(mileageReductionFactor, 0.15);
+                        
+                        // Calculate impacts
+                        const improvedMpg = fleetMpg * (1 + improvementFactor);
+                        const reducedMileage = fleetMileage * (1 - mileageReductionFactor);
+                        const currentAnnualGallons = (fleetMileage * fleetSize) / fleetMpg;
+                        const improvedAnnualGallons = (reducedMileage * fleetSize) / improvedMpg;
+                        const gallonsSaved = currentAnnualGallons - improvedAnnualGallons;
+                        const moneySaved = gallonsSaved * fleetFuelPrice;
+                        const co2Reduced = gallonsSaved * 20 / 2000; // Convert to tons (20 lbs CO2 per gallon / 2000 lbs per ton)
+                        const roi = Math.round((moneySaved / (fleetSize * 500)) * 100); // Rough estimate of program cost
+                        
+                        // Update results
+                        document.getElementById('fleet-annual-savings').textContent = '$' + moneySaved.toFixed(0);
+                        document.getElementById('fleet-fuel-reduction').textContent = gallonsSaved.toFixed(0);
+                        document.getElementById('fleet-co2-reduction').textContent = co2Reduced.toFixed(1);
+                        document.getElementById('fleet-roi').textContent = roi + '%';
+                        
+                        // Update bars
+                        const totalImprovementPercent = ((1 - improvedAnnualGallons / currentAnnualGallons) * 100);
+                        
+                        document.getElementById('fleet-fuel-bar').style.width = totalImprovementPercent + '%';
+                        document.getElementById('fleet-fuel-bar').querySelector('.bar-value').textContent = totalImprovementPercent.toFixed(1) + '%';
+                        
+                        document.getElementById('fleet-emission-bar').style.width = totalImprovementPercent + '%';
+                        document.getElementById('fleet-emission-bar').querySelector('.bar-value').textContent = totalImprovementPercent.toFixed(1) + '%';
+                        
+                        document.getElementById('fleet-cost-bar').style.width = totalImprovementPercent + '%';
+                        document.getElementById('fleet-cost-bar').querySelector('.bar-value').textContent = totalImprovementPercent.toFixed(1) + '%';
+                        
+                        // Generate recommendations
+                        const recommendations = document.getElementById('fleet-recommendations');
+                        recommendations.innerHTML = '';
+                        
+                        // Add personalized recommendations based on inputs
+                        if (!fleetTraining && driverTraining === 'none') {
+                            const recoItem = document.createElement('li');
+                            recoItem.className = 'reco-item';
+                            recoItem.innerHTML = `
+                                <div class="reco-icon">✓</div>
+                                <div class="reco-text">
+                                    <strong>Implement Driver Training Program</strong>
+                                    <p>With no current eco-driving training, implementing a comprehensive driver training program could yield the highest ROI among all initiatives.</p>
+                                </div>
+                            `;
+                            recommendations.appendChild(recoItem);
+                        }
+                        
+                        if (!routeOptimization && fleetSize > 5) {
+                            const recoItem = document.createElement('li');
+                            recoItem.className = 'reco-item';
+                            recoItem.innerHTML = `
+                                <div class="reco-icon">✓</div>
+                                <div class="reco-text">
+                                    <strong>Consider Route Optimization Software</strong>
+                                    <p>For a fleet of your size, route optimization could significantly reduce mileage and fuel consumption while improving service efficiency.</p>
+                                </div>
+                            `;
+                            recommendations.appendChild(recoItem);
+                        }
+                        
+                        if (!telematics && fleetSize > 3) {
+                            const recoItem = document.createElement('li');
+                            recoItem.className = 'reco-item';
+                            recoItem.innerHTML = `
+                                <div class="reco-icon">✓</div>
+                                <div class="
+                                </script>
+                                </html>   

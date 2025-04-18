@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Eco Drive</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and base styles with improved typography */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2E7D32;
+            --primary-light: #4CAF50;
+            --accent: #2d06ef;
+            --text-dark: #1a1a1a;
+            --text-light: #f8f8f8;
+            --gray-light: #f5f5f5;
+            --gray: #e5e5e5;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Enhanced Navbar styles with subtle shadow */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 1000;
+            border-bottom: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 2px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 30%;
+            height: 3px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .logo-text:hover::after {
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            margin: 0 1.2rem;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.8rem;
+        }
+
+        .icon {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .icon i {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .icon::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transform: translateX(-50%);
+            transition: var(--transition);
+        }
+
+        .icon:hover i {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .icon:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu {
+            display: none;
+            padding: 1.5rem;
+            background: white;
+            box-shadow: var(--shadow);
+            border-radius: 0 0 8px 8px;
+        }
+        
+        /* Add margin-top to about-section to account for fixed navbar */
+        .about-section {
+            margin-top: 70px;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+        
+        @media (max-width: 992px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-menu.active {
+                display: block;
+            }
+        }
+        
+        /* Original about.html styles */
+        .about-section {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 60px;
+            height: 4px;
+            background-color: #60a5fa;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-img {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .mission-values {
+            background-color: #fff;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .mission-values h3 {
+            font-size: 1.8rem;
+            color: #1e3a8a;
+            margin-bottom: 1.5rem;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .value-card {
+            background-color: #f0f7ff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .value-card h4 {
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-section {
+            margin-top: 4rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .team-member {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .member-img {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .member-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .member-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .member-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #1e3a8a;
+        }
+        
+        .member-info p {
+            color: #666;
+            font-style: italic;
+        }
+        
+        footer {
+            background-color: #000000;
+            color: #fff;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 3px;
+            background-color: #043139;
+        }
+        
+        .footer-column p, .footer-column a {
+            color: #ddd;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+        }
+        
+        .footer-column a:hover {
+            color: #60a5fa;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+        }
+        
+        .social-links a:hover {
+            background-color: #60a5fa;
+            color: #fff;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            width: 100%;
+        }
+        
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Updated navbar from style.css -->
+    <div class="navbar">
+        <div class="nav-container">
+            <div class="logo-text">EcoDrive</div>
+            <div class="nav-links desktop-nav">
+                <a href="home.php">Home</a>
+                <a href="about.html" class="active">About</a>
+                <a href="contact.php">Contact</a>
+            </div>
+            <div class="nav-icons desktop-nav">
+                
+                <div class="icon">
+                    <i class="fas fa-user" onclick="location.href='home.php'"></i>
+                </div>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="mobile-menu">
+            <a href="home.php">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.php">Contact</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="about-section">
+            <h2 class="section-title">About Us</h2>
+            
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="000.jpeg" alt="Eco Drive Team">
+                </div>
+                <div class="about-text">
+                    <p>Founded in 2025, Eco Drive is a pioneering force in sustainable transportation solutions. We're dedicated to revolutionizing how people and goods move while minimizing environmental impact.</p>
+                    <p>Our journey began with a simple question: How can we make transportation cleaner without compromising efficiency? Today, we've grown into a team of over 50 passionate professionals working at the intersection of innovation, technology, and sustainability.</p>
+                    <p>From electric fleet management to carbon-neutral logistics planning, we provide comprehensive solutions that help businesses and communities transition to eco-friendly transportation models that benefit both the planet and their bottom line.</p>
+                </div>
+            </div>
+            
+            <div class="mission-values">
+                <h3>Our Mission</h3>
+                <p>To accelerate the world's transition to sustainable transportation by providing innovative, accessible, and cost-effective solutions that reduce carbon emissions while enhancing mobility efficiency.</p>
+                
+                <h3>Our Values</h3>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <h4>Sustainability</h4>
+                        <p>We put environmental responsibility at the core of every decision we make.</p>
+                    </div>
+                    <div class="value-card">
+                        <h4>Innovation</h4>
+                        <p>We constantly push boundaries to create forward-thinking solutions.</p>
+                    </div>
+                    <div class="value-card">
+                        <h4>Integrity</h4>
+                        <p>We operate with transparency, honesty, and ethical standards.</p>
+                    </div>
+                    <div class="value-card">
+                        <h4>Accessibility</h4>
+                        <p>We believe sustainable transportation should be available to everyone.</p>
+                    </div>
+                    <div class="value-card">
+                        <h4>Collaboration</h4>
+                        <p>We partner with communities, businesses, and governments to create lasting change.</p>
+                    </div>
+                    <div class="value-card">
+                        <h4>Impact</h4>
+                        <p>We measure our success by our positive effect on the planet and society.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-section">
+                <h3 class="section-title">Our Leadership Team</h3>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-img">
+                            <img src="111.jpg" alt="Team Member">
+                        </div>
+                        <div class="member-info">
+                            <h4>Harsh Sharma</h4>
+                            <p>Founder & CEO</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-img">
+                            <img src="222.jpg" alt="Team Member">
+                        </div>
+                        <div class="member-info">
+                            <h4>Palak Sapro </h4>
+                            <p>Frontend Desiner</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-img">
+                            <img src="333.jpg" alt="Team Member">
+                        </div>
+                        <div class="member-info">
+                            <h4>Tannu Priya</h4>
+                            <p>Frontend Desiner</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-img">
+                            <img src="444.jpg" alt="Team Member">
+                        </div>
+                        <div class="member-info">
+                            <h4>Khushi</h4>
+                            <p>Donation Manager</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Eco Drive</h3>
+                <p>Making sustainable transportation solutions accessible, affordable, and effective for businesses and communities worldwide.</p>
+                <div class="social-links">
+                    <a href="#">FB</a>
+                    <a href="#">TW</a>
+                    <a href="#">IN</a>
+                    <a href="#">IG</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="home.php">Home</a>
+                <a href="contact.php">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <p>Forbesganj, Bihar 854318, INDIA</p>
+                <p>harsh.rshh@gmail.com.com</p>
+                <p>(+91) 97985-31147</p>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Eco Drive. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

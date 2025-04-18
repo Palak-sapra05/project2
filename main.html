@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoDrive - Drive Smart, Save Planet</title>
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --secondary: #27ae60;
+            --dark: #1e272e;
+            --light: #f5f6fa;
+            --accent: #3498db;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        header {
+            background-color: var(--primary);
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 32px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--dark);
+        }
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .hero-text {
+            flex: 1;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: white;
+            max-width: 600px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: white;
+        }
+        
+        .eco-tips {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            margin: 0 auto;
+        }
+        
+        .tips-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .tip-card {
+            background-color: var(--light);
+            border-radius: 15px;
+            overflow: hidden;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-icon {
+            background-color: var(--primary);
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 80px;
+            color: white;
+        }
+        
+        .card-content {
+            padding: 30px;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .card-content p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .stats {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            width: 250px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .stat-text {
+            font-size: 1.2rem;
+        }
+        
+        .cta {
+            padding: 100px 0;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        .cta .btn {
+            background-color: white;
+            color: var(--primary);
+            margin: 0 10px;
+        }
+        
+        .cta .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .cta .btn-outline:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section {
+            width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .footer-section p, .footer-section li {
+            margin-bottom: 10px;
+            color: #bbb;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: #bbb;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #999;
+        }
+        
+        .car-animation {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            animation: driveCar 20s linear infinite;
+        }
+
+        @keyframes driveCar {
+            0% {
+                left: -100px;
+                transform: translateY(0);
+            }
+            25% {
+                transform: translateY(-5px);
+            }
+            50% {
+                transform: translateY(0);
+            }
+            75% {
+                transform: translateY(-5px);
+            }
+            100% {
+                left: 100%;
+                transform: translateY(0);
+            }
+        }
+        
+        .leaves {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .leaf {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            top: -20px;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(100px, 100vh) rotate(360deg);
+            }
+        }
+        
+        .counter {
+            display: inline-block;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .footer-section {
+                width: 100%;
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <span class="logo-icon">🌿</span>
+                    EcoDrive
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#tips">Eco Tips</a></li>
+                    <li><a href="#stats">Impact</a></li>
+                    <li><a href="#about">About Us</a></li>
+                </ul>
+            </nav>
+            <div class="hero">
+                <div class="hero-text">
+                    <h1>Drive Greener, <br>For a Better Future</h1>
+                    <p>Small changes in your driving habits can have a big impact on the environment. Join the eco-driving movement today and help reduce carbon emissions.</p>
+                    <a href="tips.html" class="btn">Learn More</a>
+                </div>
+                <div class="leaves" id="leaves"></div>
+            </div>
+            <div class="car-animation">
+                <svg width="120" height="60" viewBox="0 0 120 60" fill="white">
+                    <rect x="10" y="20" width="100" height="20" rx="5" />
+                    <rect x="20" y="10" width="60" height="15" rx="5" />
+                    <circle cx="30" cy="40" r="10" fill="#333" />
+                    <circle cx="90" cy="40" r="10" fill="#333" />
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <section class="eco-tips" id="tips">
+        <div class="container">
+            <div class="section-title">
+                <h2>Eco-Driving Tips</h2>
+                <p>Simple practices that make a big difference</p>
+            </div>
+            <div class="tips-container">
+                <div class="tip-card">
+                    <div class="card-icon">🚶</div>
+                    <div class="card-content">
+                        <h3>Smooth Acceleration</h3>
+                        <p>Avoid aggressive acceleration and braking. Gentle driving can improve fuel efficiency by up to 30% on highways and 5% in the city.</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <div class="card-icon">⚙️</div>
+                    <div class="card-content">
+                        <h3>Maintain Your Vehicle</h3>
+                        <p>Regular maintenance ensures your car runs efficiently. A well-tuned engine can reduce fuel consumption and emissions.</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <div class="card-icon">🛑</div>
+                    <div class="card-content">
+                        <h3>Avoid Idling</h3>
+                        <p>Turn off your engine when stopped for more than 60 seconds. Idling wastes fuel and creates unnecessary emissions.</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <div class="card-icon">🌡️</div>
+                    <div class="card-content">
+                        <h3>Check Tire Pressure</h3>
+                        <p>Properly inflated tires can improve gas mileage by up to 3%. Check your tire pressure at least once a month.</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <div class="card-icon">🧳</div>
+                    <div class="card-content">
+                        <h3>Reduce Weight</h3>
+                        <p>Remove unnecessary items from your car. Every extra 100 pounds reduces fuel economy by about 1%.</p>
+                    </div>
+                </div>
+                <div class="tip-card">
+                    <div class="card-icon">🗺️</div>
+                    <div class="card-content">
+                        <h3>Plan Your Route</h3>
+                        <p>Plan your route to avoid traffic congestion and combine multiple errands into one trip.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats" id="stats">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Impact</h2>
+                <p>Numbers that matter</p>
+            </div>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number" id="co2Counter">15</div>
+                    <div class="stat-text">Potential CO2 reduction (%) with eco-driving</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="fuelCounter">25</div>
+                    <div class="stat-text">Average fuel savings (%) with proper techniques</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="moneyCounter">350</div>
+                    <div class="stat-text">Potential annual savings ($) on fuel</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="driverCounter">5.7</div>
+                    <div class="stat-text">Million eco-drivers worldwide</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <footer id="about">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About EcoDrive</h3>
+                    <p>EcoDrive is a global initiative to promote environmentally friendly driving practices that reduce fuel consumption, lower emissions, and save money.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#tips">Eco Tips</a></li>
+                        <li><a href="#stats">Impact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: harsh.rshh@gmail.com</p>
+                    <p>Phone: (+91) 97985-31147</p>
+                    <p>Forbesganj, Bihar 854318, INDIA</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <p>Follow us on social media for tips, updates, and success stories.</p>
+                    <div style="margin-top: 15px; font-size: 24px;">
+                        <a href="#" style="margin-right: 15px;">📱</a>
+                        <a href="#" style="margin-right: 15px;">📘</a>
+                        <a href="#" style="margin-right: 15px;">📸</a>
+                        <a href="#">🐦</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 EcoDrive. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Leaf animation
+        function createLeaves() {
+            const leavesContainer = document.getElementById('leaves');
+            const numLeaves = 30;
+            
+            for (let i = 0; i < numLeaves; i++) {
+                const leaf = document.createElement('div');
+                leaf.classList.add('leaf');
+                
+                // Random positions and animation durations
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 10;
+                const duration = Math.random() * 10 + 10;
+                
+                leaf.style.left = `${posX}%`;
+                leaf.style.animationDelay = `${delay}s`;
+                leaf.style.animationDuration = `${duration}s`;
+                
+                leavesContainer.appendChild(leaf);
+            }
+        }
+        
+        // Counter animation
+        function animateCounters() {
+            const counterElements = document.querySelectorAll('.stat-number');
+            
+            counterElements.forEach(counter => {
+                const targetValue = parseFloat(counter.textContent);
+                const duration = 2000; // 2 seconds
+                const steps = 100;
+                const stepValue = targetValue / steps;
+                let currentStep = 0;
+                let currentValue = 0;
+                
+                const updateCounter = () => {
+                    currentStep++;
+                    currentValue += stepValue;
+                    
+                    if (Number.isInteger(targetValue)) {
+                        counter.textContent = Math.floor(currentValue);
+                    } else {
+                        counter.textContent = currentValue.toFixed(1);
+                    }
+                    
+                    if (currentStep < steps) {
+                        setTimeout(updateCounter, duration / steps);
+                    } else {
+                        counter.textContent = targetValue;
+                    }
+                };
+                
+                counter.textContent = '0';
+                
+                // Use Intersection Observer to trigger animation when element is visible
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        setTimeout(updateCounter, 400);
+                        observer.unobserve(counter);
+                    }
+                }, { threshold: 0.5 });
+                
+                observer.observe(counter);
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        function setupSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Initialize animations on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            createLeaves();
+            animateCounters();
+            setupSmoothScrolling();
+        });
+    </script>
+</body>
+</html>
